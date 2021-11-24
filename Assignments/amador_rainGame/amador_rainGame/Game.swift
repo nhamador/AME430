@@ -60,8 +60,6 @@ class Game: SKScene, SKPhysicsContactDelegate
         let repeatAction = SKAction.repeatForever(sequence)
         run(repeatAction)
 
-        
-
     }
     func createRain(position: CGPoint)
     {
