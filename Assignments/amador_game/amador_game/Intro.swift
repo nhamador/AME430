@@ -31,7 +31,7 @@ class Intro: SKScene {
     override func mouseUp(with event: NSEvent) {
         guard let view = view else { return }
 
-        let gameScene = ClayGuy(size: view.frame.size)
+        let gameScene = OddOne(size: view.frame.size)
         let transition = SKTransition.flipHorizontal(withDuration: 0.5)
         view.presentScene(gameScene, transition: transition)
     }

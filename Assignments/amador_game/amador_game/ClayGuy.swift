@@ -10,7 +10,18 @@ import SpriteKit
 
 class ClayGuy: SKScene, SKPhysicsContactDelegate
 {
-    var timer = 30;
+   // var timer = 30;
+    @objc func fireTimer() { //need real thing here for if you fail
+        print("BAZINGA BAZGINGA BAZGAINA")
+    }
+    //let timer = Timer.scheduledTimer(timeInterval: 0.2, target: self, selector: #selector(fireTimer), userInfo: nil, repeats: true)
+    var timerLabel = SKLabelNode(fontNamed: "PartyLetPlain")
+    var vicLabel = SKLabelNode(fontNamed: "MarketFelt-Wide")
+    var timerVal: Int = 45 {
+        didSet {
+            timerLabel.text = "\(timerVal)"
+        }
+    }
     var leftEye: SKSpriteNode!
     var rightEye: SKSpriteNode!
     var mouth: SKSpriteNode!
@@ -30,8 +41,6 @@ class ClayGuy: SKScene, SKPhysicsContactDelegate
     
     // lrmh
     // 0000
-   
-    
     let blank = SKTexture(imageNamed:"0000")
     let onlyHat = SKTexture(imageNamed:"0001")
     let onlyMouth = SKTexture(imageNamed:"0010")
@@ -49,6 +58,25 @@ class ClayGuy: SKScene, SKPhysicsContactDelegate
     let leftRightMouth = SKTexture(imageNamed:"1110")
     let fullFace = SKTexture(imageNamed:"1111")
     
+    //we skip 5, 5 is not a good number
+    let vic1 = SKTexture(imageNamed: "1")
+    let vic2 = SKTexture(imageNamed: "2")
+    let vic3 = SKTexture(imageNamed: "3")
+    let vic4 = SKTexture(imageNamed: "4")
+    let vic6 = SKTexture(imageNamed: "6")
+    let vic7 = SKTexture(imageNamed: "7")
+    let vic8 = SKTexture(imageNamed: "8")
+    let vic9 = SKTexture(imageNamed: "9")
+    let vic10 = SKTexture(imageNamed: "10")
+    let vic11 = SKTexture(imageNamed: "11")
+    let vic12 = SKTexture(imageNamed: "12")
+    let vic13 = SKTexture(imageNamed: "13")
+    let vic14 = SKTexture(imageNamed: "14")
+    let vic15 = SKTexture(imageNamed: "15")
+    let vic16 = SKTexture(imageNamed: "16")
+    
+
+    
     var leftPlaced = 0;
     var rightPlaced = 0;
     var mouthPlaced = 0;
@@ -56,12 +84,40 @@ class ClayGuy: SKScene, SKPhysicsContactDelegate
     
     var selectedTexture: SKTexture!
     let scale = 3;
+    
 
     override func didMove(to view: SKView)
     {
         backgroundColor = SKColor.systemPink
         physicsWorld.contactDelegate = self
         createClayComp();
+        
+        vicLabel.position = CGPoint(x: frame.midX - 250.0, y: frame.midY + 185.0)
+        vicLabel.fontSize = 80.0;
+        vicLabel.fontColor = SKColor.white
+        addChild(vicLabel)
+
+        timerLabel.position = CGPoint(x: frame.minX + 80.0, y: frame.maxY - 65.0)
+        timerLabel.fontSize = 80.0;
+        timerLabel.fontColor = SKColor.white
+        timerLabel.text = "\(timerVal)"
+        addChild(timerLabel)
+        
+        let wait = SKAction.wait(forDuration: 0.5) //change countdown speed here
+        let block = SKAction.run({
+            [unowned self] in
+
+            if self.timerVal > 0{
+                self.timerVal -= 1
+            }else{
+                self.removeAction(forKey: "countdown")
+            }
+        })
+        let sequence = SKAction.sequence([wait,block])
+        run(SKAction.repeatForever(sequence), withKey: "countdown")
+
+
+
         
 
     }
@@ -150,7 +206,6 @@ class ClayGuy: SKScene, SKPhysicsContactDelegate
             {
                 if(rightPlaced == 0 && mouthPlaced == 0 && hatPlaced == 0)
                 {
-                    let five = CGSize(width: 5, height: 5)
                     selectedTexture = onlyLeft
                 }
                 if(rightPlaced == 0 && mouthPlaced == 0 && hatPlaced == 1)
@@ -193,9 +248,9 @@ class ClayGuy: SKScene, SKPhysicsContactDelegate
             
             }
         }
-        if(rightEye.position.x > CGFloat(450) && rightEye.position.x <= CGFloat(600)) // x [450, 600] y [288, 400]
+        if(rightEye.position.x > CGFloat(650) && rightEye.position.x <= CGFloat(800)) // x [450, 600] y [288, 400]
         {
-            if(rightEye.position.y > CGFloat(288) && rightEye.position.y <= CGFloat(400)) // x [450, 600] y [288, 400]
+            if(rightEye.position.y > CGFloat(255) && rightEye.position.y <= CGFloat(400)) // x [450, 600] y [288, 400]
             {
                 if(leftPlaced == 0 && mouthPlaced == 0 && hatPlaced == 0)
                 {
@@ -238,9 +293,9 @@ class ClayGuy: SKScene, SKPhysicsContactDelegate
             
             }
         }
-        if(mouth.position.x > CGFloat(450) && mouth.position.x <= CGFloat(600)) // x [450, 600] y [288, 400]
+        if(mouth.position.x > CGFloat(500) && mouth.position.x <= CGFloat(750)) // x [450, 600] y [288, 400]
         {
-            if(mouth.position.y > CGFloat(288) && mouth.position.y <= CGFloat(400)) // x [450, 600] y [288, 400]
+            if(mouth.position.y > CGFloat(114) && mouth.position.y <= CGFloat(263)) // x [450, 600] y [288, 400]
             {
                 if(leftPlaced == 0 && rightPlaced == 0 && hatPlaced == 0)
                 {
@@ -283,9 +338,9 @@ class ClayGuy: SKScene, SKPhysicsContactDelegate
             
             }
         }
-        if(hat.position.x > CGFloat(450) && hat.position.x <= CGFloat(600)) // x [450, 600] y [288, 400]
+        if(hat.position.x > CGFloat(450) && hat.position.x <= CGFloat(750)) // x [450, 600] y [288, 400]
         {
-            if(hat.position.y > CGFloat(288) && hat.position.y <= CGFloat(400)) // x [450, 600] y [288, 400]
+            if(hat.position.y > CGFloat(432) && hat.position.y <= CGFloat(500)) // x [450, 600] y [288, 400]
             {
                 if(leftPlaced == 0 && rightPlaced == 0 && mouthPlaced == 0)
                 {
@@ -324,11 +379,25 @@ class ClayGuy: SKScene, SKPhysicsContactDelegate
                 hat.run(SKAction.removeFromParent())
                 blankFace.texture = selectedTexture
                 hatPlaced = 1;
-            
             }
         }
+        if(selectedTexture == fullFace)
+        {
+            timerLabel.run(SKAction.removeFromParent())
+            vicLabel.text = "GOOD JOB"
+            let vicArray = [vic1, vic2, vic3, vic4, vic6, vic7, vic8, vic9, vic10, vic11, vic12, vic13, vic14, vic15, vic16];
+            let vicLoop = [vic12, vic13, vic14, vic15, vic16]
+            let hatsOff = SKAction.animate(with: vicArray, timePerFrame: 0.1) //must figure out how to animte async
+            let loopWiggle = SKAction.animate(with: vicLoop, timePerFrame: 0.1) //must figure out how to animte async
+            let repeatAction = SKAction.repeatForever(loopWiggle)
+            let sequence = SKAction.sequence([hatsOff, repeatAction])
+            
+            blankFace.run(sequence)
+            
+            //then transition back to intro do some kind of pass for score as well
+            
+        }
     }
-
     func didBegin(_ contact: SKPhysicsContact) {
         
 
