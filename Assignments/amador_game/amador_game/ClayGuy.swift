@@ -17,7 +17,7 @@ class ClayGuy: SKScene, SKPhysicsContactDelegate
     //let timer = Timer.scheduledTimer(timeInterval: 0.2, target: self, selector: #selector(fireTimer), userInfo: nil, repeats: true)
     var timerLabel = SKLabelNode(fontNamed: "PartyLetPlain")
     var vicLabel = SKLabelNode(fontNamed: "MarketFelt-Wide")
-    var timerVal: Int = 45 {
+    var timerVal: Int = 120 {
         didSet {
             timerLabel.text = "\(timerVal)"
         }
@@ -175,13 +175,7 @@ class ClayGuy: SKScene, SKPhysicsContactDelegate
         mouth.position = mouthStart
         hat.position = hatStart
     }
-    override func mouseDown(with event: NSEvent)
-    {
-        let point = event.location(in: self)
-        print(point.x)
-        print(point.y)
-        
-    }
+
     override func mouseDragged(with event: NSEvent)
     {
         
